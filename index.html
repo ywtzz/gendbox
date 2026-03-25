@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -614,28 +615,6 @@
     margin-bottom: 1rem;
   }
 
-  /* ── GARANTIES ── */
-  .garanties {
-    padding: 4rem 5%;
-    background: rgba(255,255,255,0.015);
-    border-top: 1px solid rgba(201,168,76,0.08);
-    border-bottom: 1px solid rgba(201,168,76,0.08);
-  }
-
-  .garanties-grid {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-    text-align: center;
-  }
-
-  .garantie-item { padding: 1.5rem 1rem; }
-  .garantie-icon { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
-  .garantie-title { font-size: 0.85rem; font-weight: 700; color: var(--gold-pale); margin-bottom: 0.4rem; }
-  .garantie-desc { font-size: 0.78rem; color: rgba(255,255,255,0.35); line-height: 1.6; }
-
   /* ── CTA FINAL ── */
   .final {
     padding: 9rem 5%;
@@ -761,12 +740,11 @@
     <h1>L'expérience collector<br><em>dédiée à la Gendarmerie</em></h1>
     <p class="hero-sub">Chaque Gend'Box renferme des pièces rares provenant de vrais gendarmes — pour célébrer la fierté et l'histoire d'une institution qui fait l'honneur de la France.</p>
     <div class="hero-cta">
-      <a href="#commander" class="btn-gold">Commander ma Gend'Box — 44,90€ →</a>
+      <a href="#commander" class="btn-gold">Commander ma Gend'Box — 54,90€ →</a>
       <div class="hero-reassure">
         <span class="reassure-item">Livraison soignée</span>
         <span class="reassure-item">Pièces certifiées</span>
         <span class="reassure-item">Édition numérotée</span>
-        <span class="reassure-item">Satisfait ou remboursé</span>
       </div>
     </div>
   </div>
@@ -832,10 +810,14 @@
       <div class="section-tag left">La box collector</div>
       <h2 class="title">Une box pensée<br><em>dans les moindres détails</em></h2>
       <div class="product-price-block">
-        <div class="price-main">44,90€</div>
+        <div>
+          <div style="font-size:1rem; color:rgba(255,255,255,0.4); text-decoration:line-through; margin-bottom:0.2rem;">64,90€</div>
+          <div class="price-main" style="color:#e07070;">54,90€</div>
+          <div style="font-size:0.72rem; background:rgba(139,0,0,0.2); border:1px solid rgba(139,0,0,0.35); color:#ff9090; display:inline-block; padding:0.15rem 0.6rem; letter-spacing:0.1em; text-transform:uppercase; margin-top:0.3rem;">Promo</div>
+        </div>
         <div class="price-details">
           <strong>Livraison incluse</strong>
-          Paiement sécurisé · Satisfait ou remboursé 14 jours
+          Paiement sécurisé
         </div>
       </div>
       <p class="product-desc">Chaque Gend'Box est une expérience unique — des pièces authentiques et rares, un contenu exclusif, et l'émotion de tenir entre ses mains un morceau de l'histoire de la Gendarmerie Nationale.</p>
@@ -866,7 +848,7 @@
           <span class="item-tag" style="border-color:rgba(139,0,0,0.4); color:#e07070;">Secret</span>
         </li>
       </ul>
-      <a href="#" class="btn-gold" id="commander">Commander ma Gend'Box — 44,90€ →</a>
+      <a href="#" class="btn-gold" id="commander">Commander ma Gend'Box — 54,90€ →</a>
     </div>
   </div>
 </section>
@@ -887,15 +869,7 @@
   </div>
 </section>
 
-<!-- GARANTIES -->
-<div class="garanties">
-  <div class="garanties-grid">
-    <div class="garantie-item"><span class="garantie-icon">🔒</span><div class="garantie-title">Paiement sécurisé</div><div class="garantie-desc">Transaction 100% sécurisée</div></div>
-    <div class="garantie-item"><span class="garantie-icon">↩️</span><div class="garantie-title">Remboursement 14j</div><div class="garantie-desc">Satisfait ou remboursé sans condition</div></div>
-    <div class="garantie-item"><span class="garantie-icon">📦</span><div class="garantie-title">Livraison soignée</div><div class="garantie-desc">Emballage premium en France métropolitaine</div></div>
-    <div class="garantie-item"><span class="garantie-icon">📜</span><div class="garantie-title">Authenticité certifiée</div><div class="garantie-desc">Chaque pièce livrée avec son certificat</div></div>
-  </div>
-</div>
+
 
 <!-- PRÉCOMMANDE INSTAGRAM -->
 <section class="final" style="padding: 5rem 5%;">
