@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gend'Box — L'expérience collector Gendarmerie</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Bebas+Neue&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #001228;
+    --navy-mid: #002855;
+    --navy-light: #0a3a6b;
+    --gold: #C9A84C;
+    --gold-light: #e8c96a;
+    --gold-pale: #f5e6b8;
+    --red-dark: #8B0000;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(0,18,40,0.97), transparent);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+  }
+
+  .logo span { color: white; font-style: italic; }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-btn {
+    background: var(--gold);
+    color: var(--navy) !important;
+    padding: 0.55rem 1.4rem;
+    font-weight: 900 !important;
+    transition: background 0.3s, transform 0.2s !important;
+  }
+
+  .nav-btn:hover {
+    background: var(--gold-light) !important;
+    transform: translateY(-1px);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 9rem 5% 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 90% 70% at 50% 40%, rgba(10,58,107,0.55) 0%, transparent 70%),
+      linear-gradient(170deg, #000d1f 0%, #001228 40%, #001e3d 70%, #000d1f 100%);
+  }
+
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-size: 70px 70px;
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 780px; }
+
+  .hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--gold);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 0.45rem 1.2rem;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.2rem);
+    font-weight: 900;
+    line-height: 1.06;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--gold); display: block; }
+
+  .hero-sub {
+    font-family: 'Crimson Text', serif;
+    font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+    color: rgba(255,255,255,0.6);
+    max-width: 580px;
+    margin: 0 auto 2.8rem;
+    line-height: 1.8;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  .hero-cta {
+    animation: fadeUp 0.8s ease 0.3s both;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--navy);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 1.1rem 3rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 6px 30px rgba(201,168,76,0.35);
+  }
+
+  .btn-gold:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(201,168,76,0.45);
+  }
+
+  .hero-reassure {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .reassure-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .reassure-item::before { content: '✓'; color: var(--gold); font-weight: 700; }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255,255,255,0.25);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .scroll-bar {
+    width: 1px;
+    height: 35px;
+    background: linear-gradient(to bottom, rgba(201,168,76,0.5), transparent);
+    animation: pulse 2s ease infinite;
+  }
+
+  /* ── TRUST BAR ── */
+  .trust {
+    background: rgba(201,168,76,0.04);
+    border-top: 1px solid rgba(201,168,76,0.12);
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+    padding: 1.6rem 5%;
+    display: flex;
+    justify-content: center;
+    gap: 3.5rem;
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .trust-item strong { display: block; color: var(--gold-pale); font-size: 0.85rem; margin-bottom: 0.1rem; }
+  .trust-icon { font-size: 1.4rem; }
+
+  /* ── SECTION COMMON ── */
+  .section-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .section-tag::before, .section-tag::after {
+    content: '';
+    height: 1px;
+    width: 25px;
+    background: rgba(201,168,76,0.4);
+  }
+
+  .section-tag.left::before { display: none; }
+
+  h2.title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  h2.title em { font-style: italic; color: var(--gold); }
+
+  .gold-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.5rem auto;
+  }
+
+  /* ── AVIS CLIENTS ── */
+  .reviews { padding: 7rem 5%; text-align: center; }
+  .reviews-header { max-width: 500px; margin: 0 auto 3.5rem; }
+  .reviews-header .section-tag { justify-content: center; }
+
+  .stars-overall {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 3rem;
+  }
+
+  .stars-big { font-size: 1.8rem; color: var(--gold); letter-spacing: 0.1em; }
+  .stars-score { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--gold); line-height: 1; }
+  .stars-count { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .review-card {
+    background: linear-gradient(135deg, rgba(10,58,107,0.3), rgba(0,18,40,0.6));
+    border: 1px solid rgba(201,168,76,0.1);
+    padding: 2rem;
+    text-align: left;
+    position: relative;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  .review-card:hover { transform: translateY(-4px); border-color: rgba(201,168,76,0.25); }
+
+  .review-card::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem;
+    color: rgba(201,168,76,0.07);
+    position: absolute;
+    top: -0.5rem;
+    left: 1rem;
+    line-height: 1;
+  }
+
+  .review-stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 1rem; }
+
+  .review-text {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .review-author { font-size: 0.82rem; font-weight: 700; color: var(--gold-pale); }
+  .review-role { font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 0.2rem; }
+
+  .review-verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.68rem;
+    color: rgba(100,200,100,0.7);
+    margin-top: 0.5rem;
+  }
+
+  /* ── PRODUIT ── */
+  .product {
+    padding: 7rem 5%;
+    background: rgba(255,255,255,0.015);
+    position: relative;
+  }
+
+  .product-inner {
+    max-width: 1150px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .product-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 360px;
+  }
+
+  .box-mock {
+    width: 320px;
+    height: 260px;
+    background: linear-gradient(145deg, #0a2a50, #001228);
+    border: 1px solid rgba(201,168,76,0.3);
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(201,168,76,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .box-mock::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.05) 0%, transparent 60%);
+  }
+
+  .box-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    position: relative;
+    z-index: 1;
+  }
+
+  .box-logo span { color: white; font-style: italic; }
+
+  .box-tagline {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.5);
+    position: relative;
+    z-index: 1;
+  }
+
+  .box-ribbon {
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 55%;
+    height: 12px;
+    background: linear-gradient(90deg, transparent, var(--gold), white, var(--gold), transparent);
+    opacity: 0.6;
+  }
+
+  .box-edition {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    color: rgba(201,168,76,0.35);
+    font-family: 'Courier New', monospace;
+  }
+
+  .float-item {
+    position: absolute;
+    background: linear-gradient(135deg, rgba(10,58,107,0.95), rgba(0,18,40,0.98));
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 0.55rem 0.85rem;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.7);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  }
+
+  .float-item:nth-child(1) { top: 0; left: 0; animation: float1 4s ease-in-out infinite; }
+  .float-item:nth-child(2) { bottom: 2rem; left: 0; animation: float1 4s ease-in-out -1.5s infinite; }
+  .float-item:nth-child(3) { top: 1.5rem; right: 0; animation: float1 4s ease-in-out -3s infinite; }
+
+  .float-icon { font-size: 1rem; }
+
+  .product-info .section-tag { justify-content: flex-start; }
+
+  .product-price-block {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: rgba(201,168,76,0.06);
+    border-left: 3px solid var(--gold);
+  }
+
+  .price-main {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .price-details { font-size: 0.8rem; color: rgba(255,255,255,0.4); line-height: 1.6; }
+  .price-details strong { display: block; color: rgba(255,255,255,0.6); font-size: 0.85rem; }
+
+  .product-desc {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.9;
+    margin-bottom: 2rem;
+  }
+
+  .contents-list {
+    list-style: none;
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .contents-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem 1rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .contents-list li:hover {
+    border-color: rgba(201,168,76,0.2);
+    background: rgba(201,168,76,0.04);
+  }
+
+  .item-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .item-info { flex: 1; }
+  .item-name { font-size: 0.87rem; font-weight: 700; color: var(--gold-pale); margin-bottom: 0.1rem; }
+  .item-desc { font-size: 0.76rem; color: rgba(255,255,255,0.4); line-height: 1.5; }
+
+  .item-tag {
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 0.15rem 0.5rem;
+    flex-shrink: 0;
+  }
+
+  /* ── DOSSIER ── */
+  .dossier { padding: 6rem 5%; }
+
+  .dossier-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, rgba(139,0,0,0.07), rgba(0,18,40,0.8));
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 4rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dossier-inner::after {
+    content: 'CONFIDENTIEL';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 7rem;
+    color: rgba(139,0,0,0.05);
+    pointer-events: none;
+    white-space: nowrap;
+    letter-spacing: 0.15em;
+  }
+
+  .envelope {
+    width: 200px;
+    height: 140px;
+    background: linear-gradient(145deg, #c8922a, #8a5e10);
+    position: relative;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+    flex-shrink: 0;
+  }
+
+  .envelope::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 48%, rgba(0,0,0,0.2) 50%);
+  }
+
+  .env-stamp {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px; height: 70px;
+    border: 2.5px solid rgba(139,0,0,0.85);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    color: rgba(139,0,0,0.9);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .env-label {
+    position: absolute;
+    bottom: 0.8rem; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Courier New', monospace;
+    font-size: 0.5rem;
+    color: rgba(0,0,0,0.4);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .dossier-text .section-tag { justify-content: flex-start; }
+
+  .dossier-desc {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.9;
+    margin-bottom: 1rem;
+  }
+
+  /* ── CTA FINAL ── */
+  .final {
+    padding: 9rem 5%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .final-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.05), transparent 70%);
+  }
+
+  .final-inner { position: relative; z-index: 2; max-width: 650px; margin: 0 auto; }
+  .final .section-tag { justify-content: center; }
+
+  .final h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+  }
+
+  .final h2 em { font-style: italic; color: var(--gold); }
+
+  .final-sub {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  .limited-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(139,0,0,0.15);
+    border: 1px solid rgba(139,0,0,0.3);
+    color: #ff6b6b;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    margin-bottom: 2rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding: 2.5rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--gold); }
+  .footer-logo span { color: rgba(255,255,255,0.4); font-style: italic; }
+
+  .footer-links { display: flex; gap: 2rem; list-style: none; }
+
+  .footer-links a {
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    font-size: 0.78rem;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.18); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float1 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .product-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .garanties-grid { grid-template-columns: repeat(2, 1fr); }
+    .dossier-inner { grid-template-columns: 1fr; text-align: center; padding: 2.5rem; gap: 2rem; }
+    .dossier-inner .section-tag { justify-content: center; }
+    .envelope { margin: 0 auto; }
+    footer { flex-direction: column; text-align: center; }
+    .trust { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Gend<span>'Box</span></a>
+  <ul class="nav-links">
+    <li><a href="#produit">La Box</a></li>
+    <li><a href="#avis">Avis</a></li>
+    <li><a href="#commander" class="nav-btn">Commander</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-pill">🎖️ &nbsp;Édition limitée — Pièces authentiques</div>
+    <h1>L'expérience collector<br><em>dédiée à la Gendarmerie</em></h1>
+    <p class="hero-sub">Chaque Gend'Box renferme des pièces rares provenant de vrais gendarmes — pour célébrer la fierté et l'histoire d'une institution qui fait l'honneur de la France.</p>
+    <div class="hero-cta">
+      <a href="#commander" class="btn-gold">Commander ma Gend'Box — 54,90€ →</a>
+      <div class="hero-reassure">
+        <span class="reassure-item">Livraison soignée</span>
+        <span class="reassure-item">Pièces certifiées</span>
+        <span class="reassure-item">Édition numérotée</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-bar"></div>Découvrir</div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust">
+  <div class="trust-item"><span class="trust-icon">🎖️</span><div><strong>Pièces authentiques</strong>Sourçées auprès de vrais gendarmes</div></div>
+  <div class="trust-item"><span class="trust-icon">🔢</span><div><strong>Édition numérotée</strong>Chaque box est unique et certifiée</div></div>
+  <div class="trust-item"><span class="trust-icon">🇫🇷</span><div><strong>100% français</strong>Conçue avec passion en France</div></div>
+  <div class="trust-item"><span class="trust-icon">📦</span><div><strong>Livraison soignée</strong>Emballage premium protégé</div></div>
+</div>
+
+<!-- AVIS CLIENTS -->
+<section class="reviews" id="avis">
+  <div class="reviews-header">
+    <div class="section-tag">Ce qu'ils en disent</div>
+    <h2 class="title">Ils ont reçu<br><em>leur Gend'Box</em></h2>
+    <div class="gold-line"></div>
+  </div>
+  <div class="stars-overall">
+    <div class="stars-score">5,0</div>
+    <div>
+      <div class="stars-big">★★★★★</div>
+      <div class="stars-count">Basé sur nos premiers clients</div>
+    </div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Très content et très surpris ! J'adore le concept de la box !</p>
+      <div class="review-verified">✔ Achat vérifié</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Très bonne initiative !</p>
+      <div class="review-verified">✔ Achat vérifié</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Une box qui rend vraiment hommage à la gendarmerie. L'écusson vintage est une pièce rare et émouvante, on sent que chaque détail a été pensé avec passion.</p>
+      <div class="review-verified">✔ Achat vérifié</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUIT -->
+<section class="product" id="produit">
+  <div class="product-inner">
+    <div class="product-visual">
+      <div class="float-item"><span class="float-icon">🎖️</span> Écusson authentique</div>
+      <div class="float-item"><span class="float-icon">🔐</span> Dossier Classifié</div>
+      <div class="float-item"><span class="float-icon">📜</span> Certifié & numéroté</div>
+      <div class="box-mock">
+        <div class="box-ribbon"></div>
+        <div class="box-logo">Gend<span>'Box</span></div>
+        <div class="box-tagline">L'expérience collector gendarmerie</div>
+        <div class="box-edition">ÉDITION LIMITÉE · NUMÉROTÉE</div>
+      </div>
+    </div>
+    <div class="product-info">
+      <div class="section-tag left">La box collector</div>
+      <h2 class="title">Une box pensée<br><em>dans les moindres détails</em></h2>
+      <div class="product-price-block">
+        <div>
+          <div style="font-size:1rem; color:rgba(255,255,255,0.4); text-decoration:line-through; margin-bottom:0.2rem;">64,90€</div>
+          <div class="price-main" style="color:#e07070;">54,90€</div>
+          <div style="font-size:0.72rem; background:rgba(139,0,0,0.2); border:1px solid rgba(139,0,0,0.35); color:#ff9090; display:inline-block; padding:0.15rem 0.6rem; letter-spacing:0.1em; text-transform:uppercase; margin-top:0.3rem;">Promo</div>
+        </div>
+        <div class="price-details">
+          <strong>Livraison incluse</strong>
+          Paiement sécurisé
+        </div>
+      </div>
+      <p class="product-desc">Chaque Gend'Box est une expérience unique — des pièces authentiques et rares, un contenu exclusif, et l'émotion de tenir entre ses mains un morceau de l'histoire de la Gendarmerie Nationale.</p>
+      <ul class="contents-list">
+        <li>
+          <span class="item-icon">🎖️</span>
+          <div class="item-info"><div class="item-name">Écusson vintage authentique</div><div class="item-desc">Pièce rare sourçée auprès de vrais gendarmes. Introuvable ailleurs.</div></div>
+          <span class="item-tag">Collector</span>
+        </li>
+        <li>
+          <span class="item-icon">📖</span>
+          <div class="item-info"><div class="item-name">La Chronique Gend'Box</div><div class="item-desc">Un livret écrit avec passion sur l'histoire de la gendarmerie française.</div></div>
+          <span class="item-tag">Exclusif</span>
+        </li>
+        <li>
+          <span class="item-icon">🖼️</span>
+          <div class="item-info"><div class="item-name">Photo encadrée d'époque</div><div class="item-desc">Une photographie vintage sélectionnée avec soin, prête à être exposée.</div></div>
+          <span class="item-tag">Déco</span>
+        </li>
+        <li>
+          <span class="item-icon">🎨</span>
+          <div class="item-info"><div class="item-name">Stickers & Goodies exclusifs</div><div class="item-desc">Des créations uniques aux couleurs de la Gend'Box, édition limitée.</div></div>
+          <span class="item-tag">Limité</span>
+        </li>
+        <li style="border-color:rgba(139,0,0,0.2); background:rgba(139,0,0,0.05);">
+          <span class="item-icon">🔐</span>
+          <div class="item-info"><div class="item-name">Le Dossier Classifié</div><div class="item-desc">Enveloppe scellée CONFIDENTIEL — une anecdote secrète de la gendarmerie.</div></div>
+          <span class="item-tag" style="border-color:rgba(139,0,0,0.4); color:#e07070;">Secret</span>
+        </li>
+      </ul>
+      <a href="#" class="btn-gold" id="commander">Commander ma Gend'Box — 54,90€ →</a>
+    </div>
+  </div>
+</section>
+
+<!-- DOSSIER CLASSIFIÉ -->
+<section class="dossier">
+  <div class="dossier-inner">
+    <div class="envelope">
+      <div class="env-stamp">CONFIDENTIEL<br>GEND'BOX</div>
+      <div class="env-label">ÉDITION LIMITÉE — NE PAS DIVULGUER</div>
+    </div>
+    <div class="dossier-text">
+      <div class="section-tag left">La surprise de chaque édition</div>
+      <h2 class="title">Le Dossier<br><em>Classifié</em></h2>
+      <p class="dossier-desc">Chaque Gend'Box renferme une enveloppe kraft cachetée avec le tampon <strong style="color:rgba(255,100,100,0.8)">CONFIDENTIEL</strong>. À l'intérieur, une anecdote secrète, un document d'époque ou une histoire jamais racontée sur la gendarmerie française.</p>
+      <p class="dossier-desc">C'est le produit dont tout le monde parle. Celui qu'on ouvre en dernier, avec une curiosité et une émotion uniques.</p>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- PRÉCOMMANDE INSTAGRAM -->
+<section class="final" style="padding: 5rem 5%;">
+  <div class="final-bg"></div>
+  <div class="final-inner" style="max-width:700px;">
+    <div class="section-tag">Disponible dès maintenant</div>
+    <div class="limited-badge">🎖️ &nbsp;Précommandes ouvertes</div>
+    <h2>Vous voulez votre<br><em>Gend'Box dès maintenant ?</em></h2>
+    <p class="final-sub">Les précommandes sont déjà ouvertes ! Envoyez-nous un message directement sur Instagram ou Facebook pour réserver votre box en avant-première.</p>
+    <a href="https://www.instagram.com/gendbox_" target="_blank" class="btn-gold" style="font-size:1rem; padding:1.2rem 3rem;">
+      📩 Précommander sur Instagram →
+    </a>
+    <p style="margin-top:1rem; font-size:0.85rem; color:rgba(255,255,255,0.4);">
+      Contactez-nous sur Instagram ou Facebook : <strong style="color:#C9A84C;">@gendbox_</strong>
+    </p>
+  </div>
+</section>
+
+<!-- FORMULAIRE EMAIL -->
+<section style="padding: 5rem 5%; background: rgba(255,255,255,0.02); border-top: 1px solid rgba(201,168,76,0.08);">
+  <div style="max-width:600px; margin:0 auto; text-align:center;">
+    <div class="section-tag" style="justify-content:center;">Restez informé</div>
+    <h2 class="title">Soyez le premier<br><em>à être notifié</em></h2>
+    <p style="font-size:1rem; color:rgba(255,255,255,0.5); margin-bottom:2rem; line-height:1.7;">
+      Inscrivez-vous pour recevoir en avant-première toutes les nouvelles éditions, offres exclusives et actualités de la Gend'Box.
+    </p>
+    <form action="https://formspree.io/f/xwkgpjpb" method="POST" style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+      <input 
+        type="email" 
+        name="email"
+        placeholder="Votre adresse email" 
+        required
+        style="
+          flex:1;
+          min-width:250px;
+          padding:1rem 1.5rem;
+          background:rgba(255,255,255,0.05);
+          border:1px solid rgba(201,168,76,0.2);
+          color:white;
+          font-size:0.9rem;
+          outline:none;
+          font-family:'Lato',sans-serif;
+        "
+      />
+      <button 
+        type="submit"
+        style="
+          background:linear-gradient(135deg,#C9A84C,#e8c96a);
+          color:#001228;
+          font-size:0.9rem;
+          font-weight:900;
+          letter-spacing:0.08em;
+          text-transform:uppercase;
+          padding:1rem 2rem;
+          border:none;
+          cursor:pointer;
+          font-family:'Lato',sans-serif;
+          white-space:nowrap;
+        "
+      >
+        Je m'inscris →
+      </button>
+    </form>
+    <p style="margin-top:1rem; font-size:0.72rem; color:rgba(255,255,255,0.2);">
+      Aucun spam. Désinscription possible à tout moment.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Gend<span>'Box</span></div>
+  <ul class="footer-links">
+    <li><a href="#">Mentions légales</a></li>
+    <li><a href="#">CGV</a></li>
+    <li><a href="#">Retours</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2024 Gend'Box — Tous droits réservés</div>
+</footer>
+
+</body>
+</html>
